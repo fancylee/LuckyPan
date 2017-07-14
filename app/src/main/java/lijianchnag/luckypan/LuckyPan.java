@@ -44,6 +44,8 @@ public class LuckyPan extends View {
 
     float randius;
 
+    private int[] images = new int[]{R.mipmap.huawei,R.mipmap.image_one,R.mipmap.iphone,R.mipmap.macbook,R.mipmap.meizu,R.mipmap.xiaomi};
+
     private String[] strs = {"华为手机","谢谢惠顾","iPhone 6s","mac book","魅族手机","小米手机"};
 
     public LuckyPan(Context context) {
@@ -105,7 +107,15 @@ public class LuckyPan extends View {
             canvas.drawTextOnPath(strs[i], mPath, hOffset, vOffset, mPaintText);
             mPaintText.setStrokeWidth(3*displayMetrics.density);
 //            canvas.drawPoint((float) (randius+Math.cos(30)*randius/3), (float) (randius-Math.sin(30)*randius/3),mPaintText);
-            canvas.drawPoint((float) (randius+Math.cos(Math.PI/6)*randius/2),(randius+randius/4),mPaintText);
+            canvas.drawPoint((float) (randius+Math.cos(Math.PI/6+Math.PI/3*i)*randius/2), (float) (randius+Math.sin(Math.PI/6+Math.PI/3*i)*randius/2),mPaintText);
+            Bitmap btp = BitmapFactory.decodeResource(mContext.getResources(),images[i]);
+            float imageWidth = randius/3;
+            float btpleft = (float) (randius+Math.cos(Math.PI/6+Math.PI/3*i)*randius/2 - imageWidth/2);
+            float btpright = btpleft +imageWidth;
+            float btpTop = (float) (randius+Math.sin(Math.PI/6+Math.PI/3*i)*randius/2 -imageWidth/2);
+            float btpBottom = btpTop+imageWidth;
+            RectF rectF = new RectF(btpleft,btpTop,btpright,btpBottom);
+            canvas.drawBitmap(btp,null,rectF,null);
 
         }
 
